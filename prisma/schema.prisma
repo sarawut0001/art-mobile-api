@@ -21,3 +21,12 @@ model User {
   level    String @default("user")
   status   String @default("active")
 }
+
+model Company {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  address String
+  phone   String
+  email   String?
+  taxCode String
+}
