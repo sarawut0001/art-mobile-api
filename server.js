@@ -6,6 +6,7 @@ const cors = require("cors");
 // controllers
 const { UserController } = require("./controllers/UserController");
 const { CompanyController } = require("./controllers/CompanyController");
+const { ProductController } = require("./controllers/ProductController");
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +21,10 @@ app.post("/api/user/signin", UserController.signIn);
 
 // Company
 app.post("/api/company/create", CompanyController.create);
+app.get("/api/company/list", CompanyController.list);
+
+// Buy
+app.post("/api/buy/create", ProductController.create);
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);

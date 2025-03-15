@@ -28,5 +28,14 @@ module.exports = {
         res.status(500).json({ message: error.message });
       }
     },
+
+    list: async (req, res) => {
+      try {
+        const company = await prisma.company.findFirst();
+        res.json(company);
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    },
   },
 };
