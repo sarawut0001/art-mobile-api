@@ -36,5 +36,17 @@ module.exports = {
         res.status(500).json({ error: error.message });
       }
     },
+
+    update: async (req, res) => {
+      try {
+        await prisma.product.update({
+          where: { id: req.params.id },
+          data: req.body,
+        });
+        res.json({ message: "update successfully!" });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    },
   },
 };
