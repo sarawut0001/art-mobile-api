@@ -25,6 +25,7 @@ app.get("/api/company/list", CompanyController.list);
 
 // Buy
 app.post("/api/buy/create", ProductController.create);
+app.get("/api/buy/list", ProductController.list);
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);

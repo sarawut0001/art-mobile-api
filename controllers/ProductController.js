@@ -15,10 +15,23 @@ module.exports = {
             customerPhone: req.body.customerPhone,
             customerAddress: req.body.customerAddress,
             remark: req.body.remark ?? "",
+            serial: req.body.serial ?? "",
           },
         });
 
         res.json({ message: "successfully!" });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    },
+
+    list: async (req, res) => {
+      try {
+        const products = await prisma.product.findMany({
+          orderBy: { id: "desc" },
+        });
+
+        res.json(products);
       } catch (error) {
         res.status(500).json({ error: error.message });
       }
