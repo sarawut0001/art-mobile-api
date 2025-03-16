@@ -29,6 +29,9 @@ module.exports = {
       try {
         const products = await prisma.product.findMany({
           orderBy: { id: "desc" },
+          where: {
+            status: { not: "delete" },
+          },
         });
 
         res.json(products);
@@ -44,6 +47,18 @@ module.exports = {
           data: req.body,
         });
         res.json({ message: "update successfully!" });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    },
+
+    remove: async (req, res) => {
+      try {
+        await prisma.product.update({
+          where: { id: req.params.id },
+          data: { status: "delete" },
+        });
+        res.json({ message: "delete successfully!" });
       } catch (error) {
         res.status(500).json({ error: error.message });
       }
