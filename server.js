@@ -8,6 +8,7 @@ const { UserController } = require("./controllers/UserController");
 const { CompanyController } = require("./controllers/CompanyController");
 const { ProductController } = require("./controllers/ProductController");
 const { SellController } = require("./controllers/SellController");
+const { ServiceController } = require("./controllers/ServiceController");
 
 app.use(cors());
 app.use(express.json());
@@ -37,6 +38,12 @@ app.post("/api/sell/create", SellController.create);
 app.get("/api/sell/list", SellController.list);
 app.delete("/api/sell/remove/:id", SellController.remove);
 app.get("/api/sell/confirm", SellController.confirm);
+
+// Service
+app.post("/api/service/create", ServiceController.create);
+app.get("/api/service/list", ServiceController.list);
+app.put("/api/service/update/:id", ServiceController.update);
+app.delete("/api/service/remove/:id", ServiceController.remove);
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
