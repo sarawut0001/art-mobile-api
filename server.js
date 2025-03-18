@@ -22,6 +22,7 @@ app.get("/", (req, res) => {
 app.post("/api/user/signin", UserController.signIn);
 app.get("/api/user/info", UserController.info);
 app.put("/api/user/update", UserController.update);
+app.get("/api/user/list", UserController.list);
 
 // Company
 app.post("/api/company/create", CompanyController.create);
