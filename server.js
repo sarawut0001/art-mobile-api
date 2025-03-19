@@ -42,6 +42,7 @@ app.post("/api/sell/create", SellController.create);
 app.get("/api/sell/list", SellController.list);
 app.delete("/api/sell/remove/:id", SellController.remove);
 app.get("/api/sell/confirm", SellController.confirm);
+app.get("/api/sell/dashboard", SellController.dashboard);
 
 // Service
 app.post("/api/service/create", ServiceController.create);
