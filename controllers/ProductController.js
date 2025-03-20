@@ -40,7 +40,7 @@ module.exports = {
         const skip = (page - 1) * limit;
         const totalRows = await prisma.product.count({
           where: {
-            status: { not: "delete" },
+            status: { not: "sold" },
           },
         });
         const totalPages = Math.ceil(totalRows / limit);
@@ -48,7 +48,7 @@ module.exports = {
         const products = await prisma.product.findMany({
           orderBy: { id: "desc" },
           where: {
-            status: { not: "delete" },
+            status: { not: "sold" },
           },
           skip: skip,
           take: limit,
