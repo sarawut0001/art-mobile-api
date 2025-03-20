@@ -33,7 +33,7 @@ app.get("/api/company/list", CompanyController.list);
 
 // Buy
 app.post("/api/buy/create", ProductController.create);
-app.get("/api/buy/list", ProductController.list);
+app.get("/api/buy/list/:page", ProductController.list);
 app.put("/api/buy/update/:id", ProductController.update);
 app.delete("/api/buy/remove/:id", ProductController.remove);
 
