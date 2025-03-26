@@ -109,5 +109,42 @@ module.exports = {
         res.status(500).json({ error: error.message });
       }
     },
+
+    history: async (req, res) => {
+      try {
+        const sells = await prisma.sell.findMany({
+          where: { status: "paid" },
+          orderBy: { id: "desc" },
+          include: {
+            product: {
+              select: {
+                serial: true,
+                name: true,
+              },
+            },
+          },
+        });
+
+        res.json(sells);
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    },
+
+    info: async (req, res) => {
+      try {
+        const sell = await prisma.sell.findUnique({
+          where: {
+            id: req.params.id,
+            status: "paid",
+          },
+          include: { product: true },
+        });
+
+        res.json(sell);
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    },
   },
 };
