@@ -90,14 +90,30 @@ module.exports = {
 
     dashboard: async (req, res) => {
       try {
+        const year = Number(req.params.year) ?? new Date().getFullYear();
+        const startDate = new Date(`${year}-01-01`);
+        const endDate = new Date(`${year + 1}-01-01`);
+
         const income = await prisma.sell.aggregate({
           _sum: { price: true },
-          where: { status: "paid" },
+          where: {
+            status: "paid",
+            payDate: {
+              gte: startDate,
+              lt: endDate,
+            },
+          },
         });
 
         const countRepair = await prisma.service.count();
         const countSell = await prisma.sell.count({
-          where: { status: "paid" },
+          where: {
+            status: "paid",
+            payDate: {
+              gte: startDate,
+              lt: endDate,
+            },
+          },
         });
 
         return res.json({
