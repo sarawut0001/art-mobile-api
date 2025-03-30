@@ -10,9 +10,11 @@ const { ProductController } = require("./controllers/ProductController");
 const { SellController } = require("./controllers/SellController");
 const { ServiceController } = require("./controllers/ServiceController");
 
+// middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/api/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -36,6 +38,7 @@ app.post("/api/buy/create", ProductController.create);
 app.get("/api/buy/list/:page", ProductController.list);
 app.put("/api/buy/update/:id", ProductController.update);
 app.delete("/api/buy/remove/:id", ProductController.remove);
+app.post("/api/buy/export", ProductController.exportToExel);
 
 // Sell
 app.post("/api/sell/create", SellController.create);

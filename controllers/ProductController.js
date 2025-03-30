@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const XLSX = require("xlsx");
 
 module.exports = {
   ProductController: {
@@ -89,6 +90,22 @@ module.exports = {
           data: { status: "delete" },
         });
         res.json({ message: "delete successfully!" });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    },
+
+    exportToExel: async (req, res) => {
+      try {
+        const data = req.body.products;
+        const fileName = "products.xlsx";
+
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const Workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(Workbook, worksheet, "Sheet1");
+
+        XLSX.writeFile(Workbook, "./uploads/" + fileName);
+        res.json({ fileName: fileName });
       } catch (error) {
         res.status(500).json({ error: error.message });
       }
